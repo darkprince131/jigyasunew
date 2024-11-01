@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    background-color: #e5e5e5;
+}
+
+main {
+    width: min(1200px, 90vw);
+    margin: auto;
+}
+
+.slider {
+    width: 100%; /* Ensure the slider takes up the full available width */
+    height: 200px; /* Adjust this height according to your image dimensions */
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 10% 90%,
+        transparent
+    );
+}
+
+.slider .list {
+    display: flex;
+    width: calc(100% * var(--quantity)); /* Total width based on quantity */
+    position: relative;
+    transition: transform 0.5s ease; /* Smooth transition */
+}
+
+.slider .list .item {
+    width: 100px; /* Fixed width for slider1 images */
+    height: 50px; /* Fixed height for slider1 images */
+    transition: filter 0.5s;
+}
+
+.slider .list .item img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+}
+
+@keyframes autoRun {
+    from {
+        left: 100%;
+    }
+    to {
+        left: -100%; /* Move off-screen */
+    }
+}
+
+.slider:hover .item {
+    animation-play-state: paused !important;
+    filter: grayscale(1);
+}
+
+.slider .item:hover {
+    filter: grayscale(0);
+}
+
+.slider[reverse="true"] .item {
+    animation: reversePlay 10s linear infinite;
+}
+
+@keyframes reversePlay {
+    from {
+        left: -100%; /* Start off-screen left */
+    }
+    to {
+        left: 100%; /* Move off-screen right */
+    }
+}
+
+/* Specific styles for the second slider */
+.slider[data-type='second'] .list .item {
+    width: 200px; /* Fixed width for slider2 images */
+    height: 200px; /* Fixed height for slider2 images */
+}
